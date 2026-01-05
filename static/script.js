@@ -1,4 +1,6 @@
-function moveToNextRow() {
+const correctWord = "AKALI";
+
+const moveToNextRow = () => {
   // 1. Hitta den nuvarande aktiva raden
   const currentRow = document.querySelector(".wordle-row.active");
 
@@ -19,10 +21,20 @@ function moveToNextRow() {
   } else {
     console.log("Inga fler rader - spelet slut!");
   }
-}
+};
+
+const checkGuess = (guess) => {
+  if (guess === correctWord) {
+    console.log("You guessed the correct word!");
+    return true;
+  } else {
+    console.log("Wrong guess!");
+    return false;
+  }
+};
 
 let currentBox = 0;
-
+let guessColor = "";
 document.addEventListener("keydown", function (event) {
   const boxes = document.querySelectorAll(".wordle-row.active .letter-box");
 
@@ -36,16 +48,26 @@ document.addEventListener("keydown", function (event) {
   } else if (event.key === "Enter") {
     if (currentBox === 5) {
       console.log("Kollar gissning...");
+      let userGuessArr = [];
+      for (i = 0; i < boxes.length; i++) {
+        userGuessArr.push(boxes[i].textContent);
+      }
+      let userGuessStr = userGuessArr.join("");
+      console.log(userGuessStr);
 
-      for (let i = 0; i < boxes.length; i++) {
-        boxes[i].style.transition = "transform 0.5s"
-        boxes[i].style.transform = "rotateX(360deg)"
-        boxes[i].style.backgroundColor = "green"
+      if (checkGuess(userGuessStr)) {
+        guessColor = "green";
+      } else {
+        guessColor = "red";
       }
 
-    
+      for (let i = 0; i < boxes.length; i++) {
+        boxes[i].style.transition = "transform 0.5s";
+        boxes[i].style.transform = "rotateX(360deg)";
+        boxes[i].style.backgroundColor = guessColor;
+      }
+
       moveToNextRow();
-      currentRow++; // Öka radnummer
     } else {
       console.log("Fyll alla 5 rutor först!");
     }
@@ -67,3 +89,10 @@ myHead.addEventListener("mouseenter", (event) => {
     myHead.style.color = "black";
   }
 });
+
+/*
+      for (let i = 0; i < boxes.length; i++) {
+        boxes[i].style.transition = "transform 0.5s"
+        boxes[i].style.transform = "rotateX(360deg)"
+        boxes[i].style.backgroundColor = "green"
+      }*/
