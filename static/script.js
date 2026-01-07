@@ -1,4 +1,20 @@
-const correctWord = "AKALI";
+let correctWord = "";
+
+const getRandomWord = async () => {
+  const response = await fetch(
+    "https://random-word-api.herokuapp.com/word?length=5"
+  );
+  const data = await response.json();
+  const word = data[0].toUpperCase();
+  return word;
+};
+
+const init = async () => {
+  correctWord = await getRandomWord();
+  console.log(correctWord)
+}
+
+init();
 
 const moveToNextRow = () => {
   // 1. Hitta den nuvarande aktiva raden
@@ -57,6 +73,11 @@ document.addEventListener("keydown", function (event) {
 
       if (checkGuess(userGuessStr)) {
         guessColor = "green";
+        confetti({
+          particleCount: 200,
+          spread: 50,
+          origin: { y: 0.6 },
+        });
       } else {
         guessColor = "red";
       }
