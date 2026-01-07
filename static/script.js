@@ -11,8 +11,8 @@ const getRandomWord = async () => {
 
 const init = async () => {
   correctWord = await getRandomWord();
-  console.log(correctWord)
-}
+  console.log(correctWord);
+};
 
 init();
 
@@ -40,17 +40,21 @@ const moveToNextRow = () => {
 };
 
 const checkGuess = (guess) => {
-  if (guess === correctWord) {
-    console.log("You guessed the correct word!");
-    return true;
-  } else {
-    console.log("Wrong guess!");
-    return false;
+  let colorArr = [];
+  for (i = 0; i < guess.length; i++) {
+    if (guess[i] === correctWord[i]) {
+      colorArr.push("green");
+    } else if (correctWord.includes(guess[i])) {
+      colorArr.push("yellow");
+    } else {
+      colorArr.push("red");
+    }
   }
+  return colorArr;
 };
 
 let currentBox = 0;
-let guessColor = "";
+
 document.addEventListener("keydown", function (event) {
   const boxes = document.querySelectorAll(".wordle-row.active .letter-box");
 
@@ -64,28 +68,26 @@ document.addEventListener("keydown", function (event) {
   } else if (event.key === "Enter") {
     if (currentBox === 5) {
       console.log("Kollar gissning...");
-      let userGuessArr = [];
+      let guessColor = [];
+      let userGuess = [];
       for (i = 0; i < boxes.length; i++) {
-        userGuessArr.push(boxes[i].textContent);
+        userGuess.push(boxes[i].textContent);
       }
-      let userGuessStr = userGuessArr.join("");
-      console.log(userGuessStr);
 
-      if (checkGuess(userGuessStr)) {
-        guessColor = "green";
-        confetti({
-          particleCount: 200,
-          spread: 50,
-          origin: { y: 0.6 },
-        });
-      } else {
-        guessColor = "red";
-      }
+      guessColor = checkGuess(userGuess)
 
       for (let i = 0; i < boxes.length; i++) {
         boxes[i].style.transition = "transform 0.5s";
         boxes[i].style.transform = "rotateX(360deg)";
-        boxes[i].style.backgroundColor = guessColor;
+        boxes[i].style.backgroundColor = guessColor[i];
+      }
+
+      if(guessColor.every(color => color === "green")) {
+        confetti({
+          spread: 50,
+          particleCount: 200,
+          origin: {y:0.7}
+        });
       }
 
       moveToNextRow();
