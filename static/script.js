@@ -54,8 +54,11 @@ const checkGuess = (guess) => {
 };
 
 let currentBox = 0;
+let gameOver = false;
 
 document.addEventListener("keydown", function (event) {
+  if (gameOver) return;
+
   const boxes = document.querySelectorAll(".wordle-row.active .letter-box");
 
   // Om Backspace (KOLLA DETTA FÖRST!)
@@ -74,7 +77,7 @@ document.addEventListener("keydown", function (event) {
         userGuess.push(boxes[i].textContent);
       }
 
-      guessColor = checkGuess(userGuess)
+      guessColor = checkGuess(userGuess);
 
       for (let i = 0; i < boxes.length; i++) {
         boxes[i].style.transition = "transform 0.5s";
@@ -82,12 +85,13 @@ document.addEventListener("keydown", function (event) {
         boxes[i].style.backgroundColor = guessColor[i];
       }
 
-      if(guessColor.every(color => color === "green")) {
+      if (guessColor.every((color) => color === "green")) {
         confetti({
           spread: 50,
           particleCount: 200,
-          origin: {y:0.7}
+          origin: { y: 0.7 },
         });
+        gameOver = true;
       }
 
       moveToNextRow();
@@ -112,10 +116,3 @@ myHead.addEventListener("mouseenter", (event) => {
     myHead.style.color = "black";
   }
 });
-
-/*
-      for (let i = 0; i < boxes.length; i++) {
-        boxes[i].style.transition = "transform 0.5s"
-        boxes[i].style.transform = "rotateX(360deg)"
-        boxes[i].style.backgroundColor = "green"
-      }*/
