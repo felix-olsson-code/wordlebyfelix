@@ -1,6 +1,2 @@
-let myCars = Array(3).fill(null)
-
-console.log(myCars);
-console.log(myCars.length)
-myCars[2] = "Ferrari"
-console.log(myCars[2])
+const word = "FELIX";         // ?
+console.log(word.includes("E"));    // ?

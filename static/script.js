@@ -15,7 +15,9 @@ const init = async () => {
 };
 
 init();
-
+const getCorrectWord = () => {
+  return correctWord;
+}
 const moveToNextRow = () => {
   // 1. Hitta den nuvarande aktiva raden
   const currentRow = document.querySelector(".wordle-row.active");
@@ -35,6 +37,8 @@ const moveToNextRow = () => {
 
     console.log("Flyttade till nästa rad!");
   } else {
+    document.getElementById("correct-word").textContent = correctWord;
+    document.querySelector(".game-over").style.display = "flex"
     console.log("Inga fler rader - spelet slut!");
   }
 };

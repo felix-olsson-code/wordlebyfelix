@@ -41,3 +41,31 @@ body {
   text-transform: uppercase;
   background-color: white;
 }
+ul {
+  display: flex;
+  gap: 5px;
+}
+li {
+  list-style-type: none;
+}
+
+footer {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.game-over {
+  flex-direction: column;
+  width: 250px;
+  height: 200px;
+  text-align: center;
+  position: fixed;
+  top: 30%;
+  left: 45%;
+  z-index: 1000;
+  background-color: brown;
+  align-content: center;
+  gap: 15px; /* Öka från 20px till mer space */
+  padding: 0px 25px;
+  padding-top: 20px;
+}

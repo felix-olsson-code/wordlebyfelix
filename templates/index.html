@@ -19,7 +19,12 @@
   </head>
 
   <body>
-    <h1 id="felixTitle">Felix Wordle</h1>
+    <h1 id="felixTitle">Wordle by Felix</h1>
+    <div class="game-over", style="display: none;">
+      <b>Game Over</b>
+      <button type="button", onclick="location.reload()">Restart</button>
+      The word was: <b id="correct-word">getCorrectWord()</b>
+    </div>
     <div class="wordle-game">
       <div class="wordle-row active">
         <div class="letter-box"></div>
@@ -64,6 +69,7 @@
         <div class="letter-box"></div>
       </div>
     </div>
+    <footer>Felix Olsson - 2026 &copy;</footer>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
     <script src="../static/script.js"></script>
   </body>
